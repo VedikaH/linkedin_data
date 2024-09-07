@@ -23,4 +23,4 @@ jobs:
         run: npm install  # Install dependencies defined in package.json (including Puppeteer)
 
       - name: Run Puppeteer Script
-        run: node your-script.js  # Replace with the actual name of your Puppeteer script
+        run: node data.js  # Replace with the actual name of your Puppeteer script
