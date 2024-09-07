@@ -1,0 +1,26 @@
+name: Run Puppeteer Script
+
+on:
+  push:
+    branches:
+      - main  # Runs the action when code is pushed to the main branch
+  workflow_dispatch:  # Allows manual triggering of the workflow from the GitHub UI
+
+jobs:
+  puppeteer-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Check out the repository code
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'  # Define the Node.js version to use
+
+      - name: Install Dependencies
+        run: npm install  # Install dependencies defined in package.json (including Puppeteer)
+
+      - name: Run Puppeteer Script
+        run: node your-script.js  # Replace with the actual name of your Puppeteer script
