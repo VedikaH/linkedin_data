@@ -1,6 +1,4 @@
 const puppeteer = require('puppeteer');
-const fetch = require('node-fetch');  // Import node-fetch
-
 
 function delay(time) {
     return new Promise(function(resolve) { 
@@ -10,15 +8,13 @@ function delay(time) {
 
 async function getCompanyData(companyLink) {
     const browser = await puppeteer.launch({
-        //product: 'firefox',
-        //executablePath:'C:/Program Files/Mozilla Firefox/firefox.exe',
         args: ['--start-maximized', '--incognito'],
         headless: true,
         defaultViewport: null
     });
     const page = (await browser.pages())[0];
 
-    let [companyName, designation,location] = Array(3).fill('N/A');
+    let [companyName, designation, location] = Array(3).fill('N/A');
     await page.goto(companyLink);
     
     try {
@@ -31,7 +27,7 @@ async function getCompanyData(companyLink) {
         // Extract the company name (e.g., "NSP") from the first list item
         companyName = await page.$eval('li.profile-section-card.relative.flex:first-child span.experience-item__subtitle', el => el.textContent.trim());
 
-         location = await page.$$eval('li.profile-section-card.relative.flex:first-child p.experience-item__meta-item', elements => {
+        location = await page.$$eval('li.profile-section-card.relative.flex:first-child p.experience-item__meta-item', elements => {
             return elements[elements.length - 1].textContent.trim();
         });
 
@@ -48,7 +44,9 @@ async function getCompanyData(companyLink) {
 }
 
 (async () => {
-    
+    // Dynamically import node-fetch
+    const fetch = (await import('node-fetch')).default;
+
     // Fetching data from Google Sheet. Assume the Google Doc contains two columns: 'name' and 'URL'
     const response = await fetch('https://script.google.com/macros/s/AKfycbyr6itEQPFX6sQJt8NSY7OokS5YraW5CgXfnYjilZxK0lI_3XOIR6QGpiUXPnsuG-QK7Q/exec');
     
@@ -92,7 +90,6 @@ async function getCompanyData(companyLink) {
         const payload = JSON.stringify({
             'source': 'linkedin',
             'data': result,
-            
         });
         const response = await fetch("https://script.google.com/macros/s/AKfycbzkSce3RgGqFwR8ysG9HjzqEUn8DZqbs4CDvlGBjDmT2I2iOMGNnWsUHbW6dOUx8dkxtg/exec", {
             method: 'POST',
