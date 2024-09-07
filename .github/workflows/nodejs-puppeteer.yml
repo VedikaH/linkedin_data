@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'  # Define the Node.js version to use
+          node-version: '18.12.1'  # Define the Node.js version to use
 
       - name: Install Dependencies
         run: npm install  # Install dependencies defined in package.json (including Puppeteer)
