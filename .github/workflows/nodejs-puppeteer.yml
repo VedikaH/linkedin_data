@@ -3,27 +3,33 @@ name: Run Puppeteer Script
 on:
   push:
     branches:
-      - main  # Runs the action when code is pushed to the main branch
-  workflow_dispatch:  # Allows manual triggering of the workflow from the GitHub UI
+      - main
+  workflow_dispatch:
 
 jobs:
   puppeteer-job:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Check out the repository code
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.12.1'  # Define the Node.js version to use
+          node-version: '18.12.1'
 
       - name: Install Dependencies
-        run: npm install  # Install dependencies defined in package.json (including Puppeteer)
+        run: npm ci
+
+      - name: Set Puppeteer cache directory permissions
+        run: |
+          sudo mkdir -p /usr/local/share/puppeteer-cache
+          sudo chmod -R 777 /usr/local/share/puppeteer-cache
 
       - name: Install Puppeteer browsers
-        run: npm puppeteer browsers install chrome
+        env:
+          PUPPETEER_CACHE_DIR: /usr/local/share/puppeteer-cache
+        run: npx puppeteer browsers install chrome
 
       - name: Run Puppeteer Script
-        run: node data.js  # Replace with the actual name of your Puppeteer script
+        run: node data.js
