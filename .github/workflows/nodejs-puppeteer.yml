@@ -21,15 +21,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Set Puppeteer cache directory permissions
-        run: |
-          sudo mkdir -p /usr/local/share/puppeteer-cache
-          sudo chmod -R 777 /usr/local/share/puppeteer-cache
-
       - name: Install Puppeteer browsers
-        env:
-          PUPPETEER_CACHE_DIR: /usr/local/share/puppeteer-cache
-        run: npx puppeteer browsers install chrome
+        run: npm run install-puppeteer-browser
 
       - name: Run Puppeteer Script
         run: node data.js
