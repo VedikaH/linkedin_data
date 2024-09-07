@@ -22,5 +22,8 @@ jobs:
       - name: Install Dependencies
         run: npm install  # Install dependencies defined in package.json (including Puppeteer)
 
+      - name: Install Puppeteer browsers
+        run: npx puppeteer browsers install chrome
+
       - name: Run Puppeteer Script
         run: node data.js  # Replace with the actual name of your Puppeteer script
