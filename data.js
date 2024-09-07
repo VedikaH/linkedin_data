@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const fetch = require('node-fetch');  // Import node-fetch
+
 
 function delay(time) {
     return new Promise(function(resolve) { 
