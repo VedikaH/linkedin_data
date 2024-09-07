@@ -8,7 +8,8 @@ function delay(time) {
 
 async function getCompanyData(companyLink) {
     const browser = await puppeteer.launch({
-        args: ['--start-maximized', '--incognito'],
+        executablePath: '/usr/bin/chromium-browser',  // Path to system-installed Chromium
+        args: ['--start-maximized', '--incognito','--no-sandbox', '--disable-setuid-sandbox'],
         headless: true,
         defaultViewport: null
     });
