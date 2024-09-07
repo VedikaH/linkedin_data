@@ -23,7 +23,7 @@ jobs:
         run: npm install  # Install dependencies defined in package.json (including Puppeteer)
 
       - name: Install Puppeteer browsers
-        run: sudo npx puppeteer browsers install chrome
+        run: npm puppeteer browsers install chrome
 
       - name: Run Puppeteer Script
         run: node data.js  # Replace with the actual name of your Puppeteer script
